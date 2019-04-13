@@ -1,18 +1,21 @@
+//Libraries
 import java.util.ArrayList;
-public class ToDoList {
-	Entry listElement;
-	int size;
 
-	void ToDoList() {
-		listElement = null;
-		size = 0;
+public class ToDoList {
+	ArrayList<Task> currentTasks;
+	ArrayList<Task> completedTasks;
+	ArrayList<Task> deletedTasks;
+	
+	/**
+	 * Constructor with no parameters. Initializes 3 ArrayLists
+	 */
+	ToDoList() {
+		ArrayList<Task> currentTasks = new ArrayList<Task>();
+		ArrayList<Task> completedTasks = new ArrayList<Task>();
+		ArrayList<Task> deletedTasks = new ArrayList<Task>();
+	}	
+	
+	public boolean addTaskToList(Task newTask) {
+		return false;
 	}
-	
-	void ToDoList(Entry entryInput, int sizeInput ) {
-		listElement = entryInput;
-		size = sizeInput;
-		ArrayList<Entry> toDoList = new ArrayList<Entry>();
-	}
-	
-	
 }
