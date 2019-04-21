@@ -1,7 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
 public class Main {
-
 	public static void main(String[] args) throws IOException {
 		ToDoList list = new ToDoList();
 		printMenu();
@@ -15,7 +14,11 @@ public class Main {
 			switch (input) {
 				case 1: printMenu();
 					break;
-				case 2: //list.addTaskToList(newTask);
+				case 2: 
+					Task newTask = new Task("this is task 1", "4/20/2019", 1);
+					if(list.addTaskToList(newTask)) {
+						list.testPrint();
+					}
 					break;
 				case 3: 
 					list.deleteTask();

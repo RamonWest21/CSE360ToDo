@@ -10,13 +10,47 @@ public class ToDoList {
 	 * Constructor with no parameters. Initializes 3 ArrayLists
 	 */
 	ToDoList() {
-		ArrayList<Task> currentTasks = new ArrayList<Task>();
-		ArrayList<Task> completedTasks = new ArrayList<Task>();
-		ArrayList<Task> deletedTasks = new ArrayList<Task>();
+		this.currentTasks = new ArrayList<Task>(); //in progress or not started
+		this.completedTasks = new ArrayList<Task>(); //completed
+		this.deletedTasks = new ArrayList<Task>(); //deleted
 	}	
-		
+	
+	/*
+	 * Prints the description, due date, and priority of all elements in currentTasks
+	 */
+	void testPrint() {
+		System.out.println();
+		for(int i=0; i<currentTasks.size(); i++) {
+			System.out.print(currentTasks.get(i).getDescription());
+			System.out.print("\t" + currentTasks.get(i).getDueDate());
+			System.out.print("\t" + currentTasks.get(i).getPriority());
+			System.out.println();
+		}
+	}
+	
+	public ArrayList<Task> getCurrentTasks(){
+		return currentTasks;
+	}
+	
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
+		
+		//Searches the list for a duplicate Task
+		boolean duplicate = false;
+		for(int i=0; i<currentTasks.size(); i++) {
+			if((currentTasks.get(i).getDescription()).equals(newTask.getDescription())) {
+				duplicate = true;
+			}
+		}
+		if(duplicate) {
+			return false;
+		}
+		else if(!duplicate) {
+			System.out.println("ADDED");
+			currentTasks.add(newTask);
+			return true;
+			
+		}
 		return false;
 	}
 	

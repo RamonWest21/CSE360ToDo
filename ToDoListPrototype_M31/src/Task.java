@@ -33,23 +33,23 @@ public class Task implements Serializable{
 		this.dueDate = monthDateYear;
 	}
 	
-	void setStatus(Status input) {
+	public void setStatus(Status input) {
 		this.status = input;
 	}
 
-	String getDescription() {
+	public String getDescription() {
 		return description;
 	}
 	
-	int getPriority() {
+	public int getPriority() {
 		return priority;
 	}
 	
-	String getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
 	
-	Status getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 	
