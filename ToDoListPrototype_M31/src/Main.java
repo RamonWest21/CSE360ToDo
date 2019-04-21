@@ -24,7 +24,7 @@ public class Main {
 					list.deleteTask();
 					break;
 				case 4: 
-					list.changeTask();
+					//list.changeTask();
 					break;
 				case 5: 
 					list.completeTask();

@@ -329,7 +329,51 @@ public class GUI extends javax.swing.JFrame {
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Update" button
+    	boolean error = false;
+    	String description = jTextArea1.getText();
+    	String priority = jTextField1.getText();
+    	String dueDate = jTextField2.getText();
+    	System.out.println(description);
+    	
+    	//Error checking
+    	if((!description.equals("")) && (!priority.equals("")) && (!dueDate.equals(""))) {
+    		try {
+    			Integer.parseInt(priority);
+    		}catch (NumberFormatException ex) {
+    			jLabel4.setText("Please input a number for the priority");
+    			error = true;
+    		}
+    	}
+    	else {
+    		jLabel4.setText("Please select a task from the list");
+    		error = true;
+    	}
+    	//If no error, attempt to change list
+    	if(!error) {
+    		Task newTask = new Task(description, dueDate, Integer.parseInt(priority));
+        	if(list.changeTask(newTask, listSelectedIndex)) {
+        		jTextArea1.setText("");
+            	jTextField1.setText("");
+            	jTextField2.setText("");
+            	jLabel4.setText("Task modified!");
+        		//updates the table display
+        		ArrayList<Task> currentTasks = list.getCurrentTasks();
+            	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
+            	model.setRowCount(0);
+            	Object rowData[] = new Object[4];
+            	for(int i=0; i<currentTasks.size(); i++) {
+            		rowData[0] = currentTasks.get(i).getDescription();
+            		rowData[1] = currentTasks.get(i).getStatus();
+            		rowData[2] = currentTasks.get(i).getDueDate();
+            		rowData[3] = currentTasks.get(i).getPriority();
+            		model.addRow(rowData);
+            	}
+        	}
+        	else {
+        		jLabel4.setText("Please enter a unique description");
+        	}
+    	}
     }                                        
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -340,12 +384,14 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                        
 
+    int listSelectedIndex = -1;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
     	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
     	int selectedRowIndex = jTable1.getSelectedRow();
-    	jTextArea1.setText(model.getValueAt(selectedRowIndex, 0).toString());
-    	jTextField1.setText(model.getValueAt(selectedRowIndex, 3).toString());
-    	jTextField2.setText(model.getValueAt(selectedRowIndex, 2).toString());
+    	jTextArea1.setText(model.getValueAt(selectedRowIndex, 0).toString()); //description
+    	jTextField1.setText(model.getValueAt(selectedRowIndex, 3).toString()); //priority
+    	jTextField2.setText(model.getValueAt(selectedRowIndex, 2).toString()); //due date
+    	listSelectedIndex = list.getIndexOfTask(jTextArea1.getText());
     }
     
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         

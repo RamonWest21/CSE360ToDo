@@ -32,6 +32,34 @@ public class ToDoList {
 		return currentTasks;
 	}
 	
+	public ArrayList<Task> getDeletedTasks(){
+		return deletedTasks;
+	}
+	
+	public ArrayList<Task> getCompletedTasks(){
+		return completedTasks;
+	}
+	
+	/*
+	 * Searches the list of current Tasks for the input description.
+	 * Because descriptions are unique, this is all that is needed to
+	 * search for a Task. Returns the index of the task if found.
+	 * If not found, returns -1.
+	 */
+	public int getIndexOfTask(String description) {
+		for(int i=0; i<currentTasks.size(); i++) {
+			if((currentTasks.get(i).getDescription()).equals(description)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/*
+	 * Adds a Task to the list. First checks to see if the description is unique
+	 * meaning that it is not already in the list. If unique, it returns true.
+	 * If not unique, the Task is not added and the method returns false.
+	 */
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
 		
@@ -42,11 +70,12 @@ public class ToDoList {
 				duplicate = true;
 			}
 		}
+		//duplicate description returns false - failed to add
 		if(duplicate) {
 			return false;
 		}
+		//no duplicate - Task is added to list
 		else if(!duplicate) {
-			System.out.println("ADDED");
 			currentTasks.add(newTask);
 			return true;
 			
@@ -59,9 +88,21 @@ public class ToDoList {
 		System.out.println("deleting task from list...");
 	}
 	
-	void changeTask() {
+	/*
+	 * Takes an input Task that will replace the Task at the input index.
+	 * Returns true if the Task is successfully changed.
+	 * Returns false if the Task is not modified, usually due to an incorrect
+	 * index or the new description is one that is already in the list.
+	 */
+	public boolean changeTask(Task newTask, int index) {
 		// edit / replace task from list.
 		System.out.println("changing task...");
+		
+		if(addTaskToList(newTask)) {
+			currentTasks.remove(index);
+			return true;
+		}
+		return false;
 	}
 	
 	void completeTask() {
