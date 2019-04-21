@@ -102,6 +102,12 @@ public class ToDoList {
 			currentTasks.remove(index);
 			return true;
 		}
+		//For when the description is the same but the other options might not be
+		else if(newTask.getDescription().equals(currentTasks.get(index).getDescription()) && (newTask.getPriority()!=currentTasks.get(index).getPriority() || !newTask.getDueDate().equals(currentTasks.get(index).getDueDate()))) {
+			currentTasks.remove(index);
+			addTaskToList(newTask);
+			return true;
+		}
 		return false;
 	}
 	
