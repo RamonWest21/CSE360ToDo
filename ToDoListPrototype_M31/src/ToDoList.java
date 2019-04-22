@@ -20,10 +20,10 @@ public class ToDoList {
 	 */
 	void testPrint() {
 		System.out.println();
-		for(int i=0; i<currentTasks.size(); i++) {
-			System.out.print(currentTasks.get(i).getDescription());
-			System.out.print("\t" + currentTasks.get(i).getDueDate());
-			System.out.print("\t" + currentTasks.get(i).getPriority());
+		for(int index = 0; index < currentTasks.size(); index ++) {
+			System.out.print(currentTasks.get(index).getDescription());
+			System.out.print("\t" + currentTasks.get(index).getDueDate());
+			System.out.print("\t" + currentTasks.get(index).getPriority());
 			System.out.println();
 		}
 	}
@@ -47,9 +47,9 @@ public class ToDoList {
 	 * If not found, returns -1.
 	 */
 	public int getIndexOfTask(String description) {
-		for(int i=0; i<currentTasks.size(); i++) {
-			if((currentTasks.get(i).getDescription()).equals(description)) {
-				return i;
+		for(int index = 0; index < currentTasks.size(); index++) {
+			if((currentTasks.get(index).getDescription()).equals(description)) {
+				return index;
 			}
 		}
 		return -1;
@@ -62,31 +62,41 @@ public class ToDoList {
 	 */
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
+		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
+		boolean uniquePriority = checkUniquePriority(currentTasks, newTask);
 		
-		//Searches the list for a duplicate Task
-		boolean duplicate = false;
-		for(int i=0; i<currentTasks.size(); i++) {
-			if((currentTasks.get(i).getDescription()).equals(newTask.getDescription())) {
-				duplicate = true;
-			}
-		}
-		//duplicate description returns false - failed to add
-		if(duplicate) {
-			return false;
-		}
-		//no duplicate - Task is added to list
-		else if(!duplicate) {
+		//duplicate description or priority returns false - failed to add
+		if(uniqueDescription && uniquePriority) {
 			currentTasks.add(newTask);
 			return true;
+		}
+		//no duplicate - Task is added to list
+		else if(!uniqueDescription || !uniquePriority) {
+			return false;
 			
 		}
 		return false;
 	}
 	
-	void deleteTask() {
+	public boolean deleteTask(Task task) {
 		// delete task from list.
 		System.out.println("deleting task from list...");
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
+		
+		//if the task does not exist - nothing is removed from 'current' list
+		if(taskDoesNotExist) {
+			return false;
+		}
+		//if the task exists - add to 'deleted' list then remove from 'current' list.
+		else if(!taskDoesNotExist) {
+			deletedTasks.add(task);
+			currentTasks.remove(task);
+			return false;
+			
+		}
+		return false;
 	}
+	
 	
 	/*
 	 * Takes an input Task that will replace the Task at the input index.
@@ -103,7 +113,10 @@ public class ToDoList {
 			return true;
 		}
 		//For when the description is the same but the other options might not be
-		else if(newTask.getDescription().equals(currentTasks.get(index).getDescription()) && (newTask.getPriority()!=currentTasks.get(index).getPriority() || !newTask.getDueDate().equals(currentTasks.get(index).getDueDate()))) {
+		else if(newTask.getDescription().equals(currentTasks.get(index).getDescription()) 
+				&& (newTask.getPriority()!=currentTasks.get(index).getPriority() 
+				|| !newTask.getDueDate().equals(currentTasks.get(index).getDueDate()))) 
+		{
 			currentTasks.remove(index);
 			addTaskToList(newTask);
 			return true;
@@ -111,11 +124,44 @@ public class ToDoList {
 		return false;
 	}
 	
-	void completeTask() {
-		// change status to complete and remove from list.
+	public boolean completeTask(Task completeTask, int index) {
+		// change status to complete, remove from toDolist, add to complete list. 
 		System.out.println("setting task status to complete...");
+		
+		return false;
 	}
 	
+	private boolean checkUniqueDescription(ArrayList<Task> list, Task task) {
+		boolean unique = true;
+		for(int index = 0; index < list.size(); index++) {
+			if((list.get(index).getDescription()).equals(task.getDescription())) {
+				unique = false;
+			}
+		}
+		if(unique) {
+			 return true;
+		}
+		else if (!unique) {
+			return false;
+		}
+		return false;
+	}
+	
+	private boolean checkUniquePriority(ArrayList<Task> list, Task task) {
+		boolean unique = true;
+		for(int index = 0; index < list.size(); index++) {
+			if((list.get(index).getPriority()) == (task.getPriority())) {
+				unique = false;
+			}
+		}
+		if(unique) {
+			 return true;
+		}
+		else if (!unique) {
+			return false;
+		}
+		return false;
+	}
 	void displayToGUI() {
 		// display current list to GUI.
 		System.out.println("displaying To Do list...");
