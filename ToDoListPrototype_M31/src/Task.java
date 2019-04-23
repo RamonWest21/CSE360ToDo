@@ -27,6 +27,7 @@ public class Task implements Serializable{
 		this.dueDate = dueDate;
 		this.priority = priority;
 		this.finishDate = "Never";
+		this.startDate = "Never";
 		this.status = Status.NOT_STARTED;
 	}
 
