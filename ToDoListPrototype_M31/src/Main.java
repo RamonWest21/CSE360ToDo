@@ -21,13 +21,13 @@ public class Main {
 					}
 					break;
 				case 3: 
-					list.deleteTask();
+					//list.deleteTask();
 					break;
 				case 4: 
 					//list.changeTask();
 					break;
 				case 5: 
-					list.completeTask();
+					//list.completeTask();
 					break;
 				case 6: 
 					list.sortByDescription();

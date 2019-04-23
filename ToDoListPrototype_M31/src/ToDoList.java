@@ -40,6 +40,10 @@ public class ToDoList {
 		return completedTasks;
 	}
 	
+	public Task getTask(int index) {
+		return currentTasks.get(index);
+	}
+	
 	/*
 	 * Searches the list of current Tasks for the input description.
 	 * Because descriptions are unique, this is all that is needed to
@@ -66,12 +70,12 @@ public class ToDoList {
 		boolean uniquePriority = checkUniquePriority(currentTasks, newTask);
 		
 		//duplicate description or priority returns false - failed to add
-		if(uniqueDescription && uniquePriority) {
+		if(uniqueDescription) {
 			currentTasks.add(newTask);
 			return true;
 		}
 		//no duplicate - Task is added to list
-		else if(!uniqueDescription || !uniquePriority) {
+		else if(!uniqueDescription) {
 			return false;
 			
 		}

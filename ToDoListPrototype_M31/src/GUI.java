@@ -310,7 +310,7 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 50, Short.MAX_VALUE))
     );
-
+    
     pack();
     }// </editor-fold>
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -325,7 +325,11 @@ public class GUI extends javax.swing.JFrame {
     	String dueDate = jTextField2.getText();
     	
     	//Error checking
-    	if((!description.equals("")) && (!priority.equals("")) && (!dueDate.equals(""))) {
+    	if(convertedIndex == -1) {
+    		JOptionPane.showMessageDialog(jTabbedPane1, "Please select a task from the list", "Error", JOptionPane.ERROR_MESSAGE);
+    		error = true;
+    	}
+    	if((!description.equals("")) && (!priority.equals("")) && (!dueDate.equals("")) && !error) {
     		try {
     			Integer.parseInt(priority);
     		}catch (NumberFormatException ex) {
@@ -346,18 +350,7 @@ public class GUI extends javax.swing.JFrame {
         		jTextField6.setText("");
             	jTextField1.setText("");
             	jTextField2.setText("");
-        		//updates the table display
-        		ArrayList<Task> currentTasks = list.getCurrentTasks();
-            	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
-            	model.setRowCount(0);
-            	Object rowData[] = new Object[4];
-            	for(int i=0; i<currentTasks.size(); i++) {
-            		rowData[0] = currentTasks.get(i).getDescription();
-            		rowData[1] = currentTasks.get(i).getStatus();
-            		rowData[2] = currentTasks.get(i).getDueDate();
-            		rowData[3] = currentTasks.get(i).getPriority();
-            		model.addRow(rowData);
-            	}
+        		updateTable();
             	//jLabel4.setText("Task modified!");
             	JOptionPane.showMessageDialog(jTabbedPane1, "Task Modified!", "Message", JOptionPane.INFORMATION_MESSAGE);
         	}
@@ -373,14 +366,28 @@ public class GUI extends javax.swing.JFrame {
     }                                        
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Delete" button
+    	if(convertedIndex == -1) {
+    		JOptionPane.showMessageDialog(jPanel1, "Please select a task from the list", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    	else {
+    		Task delete = list.getTask(convertedIndex);
+    		list.deleteTask(delete);
+    		listSelectedIndex = -1;
+    	    convertedIndex = -1;
+    	    jTextField6.setText("");
+        	jTextField1.setText("");
+        	jTextField2.setText("");
+    		updateTable();
+    	}
     }                                        
 
     int listSelectedIndex = -1;
+    int convertedIndex = -1;
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
     	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
     	int selectedRowIndex = jTable1.getSelectedRow();
-    	int convertedIndex = jTable1.convertRowIndexToModel(selectedRowIndex);
+    	convertedIndex = jTable1.convertRowIndexToModel(selectedRowIndex);
     	jTextField6.setText(model.getValueAt(convertedIndex, 0).toString()); //description
     	jTextField1.setText(model.getValueAt(convertedIndex, 3).toString()); //priority
     	jTextField2.setText(model.getValueAt(convertedIndex, 2).toString()); //due date
@@ -416,18 +423,7 @@ public class GUI extends javax.swing.JFrame {
         		jTextField5.setText("");
             	jTextField4.setText("");
             	jTextField3.setText("");
-        		//updates the table display
-        		ArrayList<Task> currentTasks = list.getCurrentTasks();
-            	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
-            	model.setRowCount(0);
-            	Object rowData[] = new Object[4];
-            	for(int i=0; i<currentTasks.size(); i++) {
-            		rowData[0] = currentTasks.get(i).getDescription();
-            		rowData[1] = currentTasks.get(i).getStatus();
-            		rowData[2] = currentTasks.get(i).getDueDate();
-            		rowData[3] = currentTasks.get(i).getPriority();
-            		model.addRow(rowData);
-            	}
+        		updateTable();
             	//jLabel5.setText("Added!");
             	JOptionPane.showMessageDialog(jTabbedPane1, "Task Added!", "Message", JOptionPane.INFORMATION_MESSAGE);
         	}
@@ -442,7 +438,22 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
+    }
+    
+    private void updateTable() {
+    	//updates the table display
+		ArrayList<Task> currentTasks = list.getCurrentTasks();
+    	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
+    	model.setRowCount(0);
+    	Object rowData[] = new Object[4];
+    	for(int i=0; i<currentTasks.size(); i++) {
+    		rowData[0] = currentTasks.get(i).getDescription();
+    		rowData[1] = currentTasks.get(i).getStatus();
+    		rowData[2] = currentTasks.get(i).getDueDate();
+    		rowData[3] = currentTasks.get(i).getPriority();
+    		model.addRow(rowData);
+    	}
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
