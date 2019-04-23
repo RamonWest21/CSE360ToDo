@@ -7,7 +7,7 @@ public class Main {
 		System.out.println("\nEnter a command.");
 		Scanner scan = new Scanner(System.in);
 		int input = scan.nextInt();
-		while(input != 12) {
+		while(input != 9) {
 			if (input < 1 || input > 12) {
 				System.out.println("Enter a valid command");
 			}
@@ -30,24 +30,12 @@ public class Main {
 					//list.completeTask();
 					break;
 				case 6: 
-					list.sortByDescription();
-					list.displayToGUI();
+					//list.printReport();
 					break;
 				case 7: 
-					list.sortByPriority();
-					list.displayToGUI();
-					break;
-				case 8: 
-					list.sortByStatus();
-					list.displayToGUI();
-					break;
-				case 9: 
-					list.printReport();
-					break;
-				case 10: 
 					list.save();
 					break;
-				case 11: 
+				case 8: 
 					list.restore();
 					break;
 			}
@@ -62,12 +50,9 @@ public class Main {
 		System.out.println("3: change task");
 		System.out.println("4: change task");
 		System.out.println("5: complete task");
-		System.out.println("6: display by description");
-		System.out.println("7: display by priority");
-		System.out.println("8: display by status");
-		System.out.println("9: print report");
-		System.out.println("10: save");
-		System.out.println("11: restore");
-		System.out.println("12: terminate program");
+		System.out.println("6: print report");
+		System.out.println("7: save");
+		System.out.println("8: restore");
+		System.out.println("9: terminate program");
 	}
 }

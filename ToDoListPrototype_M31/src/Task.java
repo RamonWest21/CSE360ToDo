@@ -26,6 +26,7 @@ public class Task implements Serializable{
 		this.description = description;
 		this.dueDate = dueDate;
 		this.priority = priority;
+		this.startDate = "Tommorow For sure...";
 		this.finishDate = "Never";
 		this.startDate = "Never";
 		this.status = Status.NOT_STARTED;
@@ -39,8 +40,16 @@ public class Task implements Serializable{
 		this.priority = input;
 	}
 	
+	public void setStartDate(String monthDateYear) {
+		this.startDate = monthDateYear;
+	}
+	
 	public void setDueDate(String monthDateYear) {
 		this.dueDate = monthDateYear;
+	}
+	
+	public void setFinishDate(String monthDateYear) {
+		this.finishDate = monthDateYear;
 	}
 	
 	public void setStatus(Status input) {
@@ -55,8 +64,16 @@ public class Task implements Serializable{
 		return priority;
 	}
 	
+	public String getStartDate() {
+		return startDate;
+	}
+	
 	public String getDueDate() {
 		return dueDate;
+	}
+	
+	public String getFinishDate() {
+		return finishDate;
 	}
 	
 	public Status getStatus() {
