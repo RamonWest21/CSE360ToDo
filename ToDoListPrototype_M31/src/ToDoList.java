@@ -37,14 +37,10 @@ public class ToDoList {
 	
 
 	
-	/**
-	 * <p>
+	/*
 	 * Adds a Task to the list. First checks to see if the description is unique
 	 * meaning that it is not already in the list. If unique, it returns true.
 	 * If not unique, the Task is not added and the method returns false.
-	 * </p>
-	 * @param Task	-	task object to add to the ArrayList.
-	 * @author Tanner Cooper
 	 */
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
@@ -63,13 +59,7 @@ public class ToDoList {
 		}
 		return false;
 	}
-	/**
-	 * <p>
-	 * Checks to see if the task exists. Adds task to deletedTasks list, then removes the task from currentTasks list. 
-	 * </p>
-	 * @param Task	-	task object to search for in the ArrayList and remove. 
-	 * @author Ramon West
-	 */
+	
 	public boolean deleteTask(Task task) {
 		// delete task from list.
 		System.out.println("deleting task from list...");
@@ -83,23 +73,18 @@ public class ToDoList {
 		else if(!taskDoesNotExist) {
 			deletedTasks.add(task);
 			currentTasks.remove(task);
-			return true;
+			return false;
 			
 		}
 		return false;
 	}
 	
 	
-	/**
-	 * <p>
+	/*
 	 * Takes an input Task that will replace the Task at the input index.
 	 * Returns true if the Task is successfully changed.
 	 * Returns false if the Task is not modified, usually due to an incorrect
 	 * index or the new description is one that is already in the list.
-	 * </p>
-	 * @param Task	-	takes in a Task object.
-	 * @param index	-	takes in an int value representing the index of Task in the ArrayList.
-	 * @author Tanner Cooper
 	 */
 	public boolean changeTask(Task newTask, int index) {
 		// edit / replace task from list.
@@ -120,43 +105,11 @@ public class ToDoList {
 		}
 		return false;
 	}
-	
-	/**
-	 * <p>
-	 * Sets the Task status to complete. Adds Task to completedTasks ArrayList. Removes Task from currentTasks ArrayList.
-	 * </p>
-	 * @param Task	-	Task object to set to complete.
-	 * @param index	-	int value for the index of the Task in the currentTasks ArrayList.
-	 * @return boolean	- true if completed, false if the Task does not exist.
-	 * @author Ramon West
-	 */
-	public boolean completeTask(Task completeTask, int index) {
-		// change status to complete, remove from toDolist, add to complete list. 
-		System.out.println("setting task status to complete...");
-		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
-		//if the task does not exist - nothing is removed from 'current' list
-		if(taskDoesNotExist) {
-			return false;
-		}
-		//if the task exists - add to 'completed' list then remove from 'current' list.
-		else if(!taskDoesNotExist) {
-			completedTasks.add(task);
-			currentTasks.remove(task);
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * <p>
+		/*
 	 * Searches the list of current Tasks for the input description.
 	 * Because descriptions are unique, this is all that is needed to
 	 * search for a Task. Returns the index of the task if found.
 	 * If not found, returns -1.
-	 * </p>
-	 * @param String description	-	String type Task description. 
-	 * @return int index	-	index of the Task, if found. If not found, index = -1.
-	 * @author Tanner Cooper
 	 */
 	public int getIndexOfTask(String description) {
 		for(int index = 0; index < currentTasks.size(); index++) {
@@ -167,15 +120,13 @@ public class ToDoList {
 		return -1;
 	}
 	
-	/**
-	 * <p>
-	 * Checks if the Task description is unique. 
-	 * </p>
-	 * @param ArrayList list	-	ArrayList of type 'Task.'
-	 * @param Task	task			-	Task object.
-	 * @return boolean	 -	Returns true if the Task description field is unique in the ArrayList. Returns false if the description exists.	 
-	 * @author Ramon West
-	 */
+	public boolean completeTask(Task completeTask, int index) {
+		// change status to complete, remove from toDolist, add to complete list. 
+		System.out.println("setting task status to complete...");
+		
+		return false;
+	}
+	
 	private boolean checkUniqueDescription(ArrayList<Task> list, Task task) {
 		boolean unique = true;
 		for(int index = 0; index < list.size(); index++) {
@@ -192,15 +143,6 @@ public class ToDoList {
 		return false;
 	}
 	
-	/**
-	 * <p>
-	 * Checks if the Task priority is unique. 
-	 * </p>
-	 * @param ArrayList list	-	ArrayList of type 'Task.'
-	 * @param Task	task			-	Task object.
-	 * @return boolean	 -	Returns true if the Task priority field is unique in the ArrayList. Returns false if the priority is taken.	 
-	 * @author Ramon West
-	 */
 	private boolean checkUniquePriority(ArrayList<Task> list, Task task) {
 		boolean unique = true;
 		for(int index = 0; index < list.size(); index++) {
@@ -217,15 +159,6 @@ public class ToDoList {
 		return false;
 	}
 	
-	/**
-	 * <p>
-	 * Prints report to Report.txt. Parses through the currentTasks, completedTasks, and deletedTasks ArrayLists to print each task and its properties.
-	 * Current tasks will print description, start date, due date, and priority.
-	 * Completed tasks will print description, start date, due date, and finish date.
-	 * Deleted tasks will print description, start date, due date, and finish date.
-	 * </p>
-	 * @author Ramon West
-	 */
 	public void printReport() {
 		// print all content and status to a file. 
 		// requires File I/O.
