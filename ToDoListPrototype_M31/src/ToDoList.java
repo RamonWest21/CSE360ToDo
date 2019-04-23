@@ -1,5 +1,7 @@
 //Libraries
 import java.util.ArrayList;
+import java.io.PrintWriter;
+import java.io.File;
 
 public class ToDoList {
 	ArrayList<Task> currentTasks;
@@ -157,10 +159,36 @@ public class ToDoList {
 		return false;
 	}
 	
-	void printReport() {
+	public void printReport() {
 		// print all content and status to a file. 
 		// requires File I/O.
 		System.out.println("printing list to report...");
+		try (PrintWriter out = new PrintWriter("Report.txt")) {
+		    out.println("\nCurrent To Do List");
+		    for (int index = 0; index < currentTasks.size(); index++) {
+		    	out.println("\nDescription: " + currentTasks.get(index).getDescription()
+		    			+ "\tStart Date:" + currentTasks.get(index).getStartDate()
+		    			+ "\tDue Date: " + currentTasks.get(index).getDueDate()
+						+ "\tPriority: " + currentTasks.get(index).getPriority());		    
+		    }
+		    
+		    out.println("\nCompleted Tasks")
+		    for (int index = 0; index < completedTasks.size(); index++) {
+		    	out.println("\nDescription: " + completedTasks.get(index).getDescription()
+		    			+ "\tStart Date:" + completedTasks.get(index).getStartDate()
+		    			+ "\tDue Date: " + completedTasks.get(index).getDueDate()
+						+ "\tFinish Date: " + completedTasks.get(index).getFinishDate());		    
+		    }
+		    
+		    out.println("\nDeleted Tasks")
+		    for (int index = 0; index < deletedTasks.size(); index++) {
+		    	out.println("\nDescription: " + deletedTasks.get(index).getDescription());
+		    	out.println("\tStart Date:" + deletedTasks.get(index).getStartDate());
+		    	out.println("\tDue Date: " + deletedTasks.get(index).getDueDate());
+		    	out.println("\tFinish Date: " + deletedTasks.get(index).getFinishDate());		    
+		    }
+		}
+		out.close();
 	}
 	
 	void save() {
