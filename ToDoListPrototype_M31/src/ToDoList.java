@@ -15,18 +15,7 @@ public class ToDoList {
 		this.deletedTasks = new ArrayList<Task>(); //deleted
 	}	
 	
-	/*
-	 * Prints the description, due date, and priority of all elements in currentTasks
-	 */
-	void testPrint() {
-		System.out.println();
-		for(int index = 0; index < currentTasks.size(); index ++) {
-			System.out.print(currentTasks.get(index).getDescription());
-			System.out.print("\t" + currentTasks.get(index).getDueDate());
-			System.out.print("\t" + currentTasks.get(index).getPriority());
-			System.out.println();
-		}
-	}
+	
 	
 	public ArrayList<Task> getCurrentTasks(){
 		return currentTasks;
@@ -44,20 +33,7 @@ public class ToDoList {
 		return currentTasks.get(index);
 	}
 	
-	/*
-	 * Searches the list of current Tasks for the input description.
-	 * Because descriptions are unique, this is all that is needed to
-	 * search for a Task. Returns the index of the task if found.
-	 * If not found, returns -1.
-	 */
-	public int getIndexOfTask(String description) {
-		for(int index = 0; index < currentTasks.size(); index++) {
-			if((currentTasks.get(index).getDescription()).equals(description)) {
-				return index;
-			}
-		}
-		return -1;
-	}
+
 	
 	/*
 	 * Adds a Task to the list. First checks to see if the description is unique
@@ -127,6 +103,20 @@ public class ToDoList {
 		}
 		return false;
 	}
+		/*
+	 * Searches the list of current Tasks for the input description.
+	 * Because descriptions are unique, this is all that is needed to
+	 * search for a Task. Returns the index of the task if found.
+	 * If not found, returns -1.
+	 */
+	public int getIndexOfTask(String description) {
+		for(int index = 0; index < currentTasks.size(); index++) {
+			if((currentTasks.get(index).getDescription()).equals(description)) {
+				return index;
+			}
+		}
+		return -1;
+	}
 	
 	public boolean completeTask(Task completeTask, int index) {
 		// change status to complete, remove from toDolist, add to complete list. 
@@ -166,31 +156,6 @@ public class ToDoList {
 		}
 		return false;
 	}
-	void displayToGUI() {
-		// display current list to GUI.
-		System.out.println("displaying To Do list...");
-	}
-	
-	void sortByDescription() {
-		// sort alphabetically by description.
-		System.out.println("sorting by description...");
-	}
-		
-	void sortByPriority() {
-		// sort by priority.
-		System.out.println("sorting by priority...");
-	}
-	
-	void sortByStatus() {
-		// sort by status.
-		System.out.println("sorting by status...");
-	}
-	
-	void reverseList() {
-		// reverse list.
-		// Useful for sorting lists by increasing or decreasing order.
-		System.out.println("reversing list...");
-	}
 	
 	void printReport() {
 		// print all content and status to a file. 
@@ -208,5 +173,17 @@ public class ToDoList {
 		// read from file to restore previous session.
 		// requires File I/O.
 		System.out.println("restoring list...");
+	}
+	/*
+	 * Prints the description, due date, and priority of all elements in currentTasks
+	 */
+	void testPrint() {
+		System.out.println();
+		for(int index = 0; index < currentTasks.size(); index ++) {
+			System.out.print(currentTasks.get(index).getDescription());
+			System.out.print("\t" + currentTasks.get(index).getDueDate());
+			System.out.print("\t" + currentTasks.get(index).getPriority());
+			System.out.println();
+		}
 	}
 }
