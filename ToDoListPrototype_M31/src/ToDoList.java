@@ -182,10 +182,10 @@ public class ToDoList {
 		    
 		    out.println("\nDeleted Tasks")
 		    for (int index = 0; index < deletedTasks.size(); index++) {
-		    	out.println("\nDescription: " + deletedTasks.get(index).getDescription());
-		    	out.println("\tStart Date:" + deletedTasks.get(index).getStartDate());
-		    	out.println("\tDue Date: " + deletedTasks.get(index).getDueDate());
-		    	out.println("\tFinish Date: " + deletedTasks.get(index).getFinishDate());		    
+		    	out.println("\nDescription: " + deletedTasks.get(index).getDescription()
+		    			+ "\tStart Date:" + deletedTasks.get(index).getStartDate()
+		    			+ "\tDue Date: " + deletedTasks.get(index).getDueDate()
+		    			+ "\tFinish Date: " + deletedTasks.get(index).getFinishDate());		    
 		    }
 		}
 		out.close();
