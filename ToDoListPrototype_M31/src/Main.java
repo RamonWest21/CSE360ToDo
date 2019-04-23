@@ -30,7 +30,7 @@ public class Main {
 					//list.completeTask();
 					break;
 				case 6: 
-					list.currentTasks.printReport();
+					//list.printReport();
 					break;
 				case 7: 
 					list.save();
