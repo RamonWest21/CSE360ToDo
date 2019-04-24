@@ -1,5 +1,6 @@
 //Libraries
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -50,6 +51,7 @@ public class ToDoList {
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
 		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
+		sortPrio(currentTasks);
 		int count = 1;
 		for(int i=0; i < currentTasks.size(); i++) {
 			if(currentTasks.get(i).getPriority()==count) {
@@ -248,7 +250,6 @@ public class ToDoList {
 			}
 		}
 		if(unique) {
-			System.out.println("UNIQUE");
 			 return null;
 		}
 		else if (!unique) {
@@ -269,6 +270,18 @@ public class ToDoList {
 		}
 	}
 
+	
+	/**
+	 * <p>
+	 * Sorts input array list by priority
+	 * </p>
+	 * @param ArrayList list	-	ArrayList of type 'Task.'
+	 * @author Tanner Cooper
+	 */
+	public void sortPrio(ArrayList<Task> list) {
+		Collections.sort(list);
+	}
+	
 	/**
 	 * <p>
 	 * Prints report to Report.txt. Parses through the currentTasks, completedTasks, and deletedTasks ArrayLists to print each task and its properties.
@@ -282,6 +295,9 @@ public class ToDoList {
 	public void printReport() throws FileNotFoundException {
 		// print all content and status to a file.
 		// requires File I/O.
+		sortPrio(currentTasks);
+		sortPrio(completedTasks);
+		sortPrio(deletedTasks);
 		System.out.println("printing list to report...");
 		try (PrintWriter out = new PrintWriter("Report.txt")) {
 		    out.println("***********************************************************************************************************");

@@ -15,7 +15,7 @@ enum Status {
 		}
 	}
 
-public class Task implements Serializable{
+public class Task implements Serializable, Comparable{
 	String description, dueDate, finishDate, startDate;
 	Status status;
 	int priority;
@@ -80,5 +80,10 @@ public class Task implements Serializable{
 	public Status getStatus() {
 		return status;
 	}
-	
+
+	public int compareTo(Object compare) {
+		int comparePrio=((Task)compare).getPriority();
+        /* For Ascending order*/
+        return this.priority-comparePrio;
+	}
 }

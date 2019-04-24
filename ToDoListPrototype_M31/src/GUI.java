@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -311,9 +312,9 @@ public class GUI extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGap(0, 50, Short.MAX_VALUE))
     );
-
     pack();
     jTable1.setAutoCreateRowSorter(true);
+    jTabbedPane1.setFont(new Font( "Dialog", Font.BOLD, 16));
     }// </editor-fold>
     
     
@@ -401,13 +402,18 @@ public class GUI extends javax.swing.JFrame {
     	}
     	else {
     		Task complete = list.getTask(convertedIndex);
-    		list.completeTask(complete);
-    		listSelectedIndex = -1;
-    	    convertedIndex = -1;
-    	    jTextField6.setText("");
-        	jTextField1.setText("");
-        	jTextField2.setText("");
-    		updateTable();
+    		if(list.completeTask(complete)) {
+    			listSelectedIndex = -1;
+        	    convertedIndex = -1;
+        	    jTextField6.setText("");
+            	jTextField1.setText("");
+            	jTextField2.setText("");
+        		updateTable();
+    		}
+    		else {
+    			JOptionPane.showMessageDialog(jPanel1, "Please start the task before completing it", "Error", JOptionPane.ERROR_MESSAGE);
+    		}
+    		
     	}
     }                                        
 
@@ -504,7 +510,7 @@ public class GUI extends javax.swing.JFrame {
     		model.addRow(rowData);
     	}
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
