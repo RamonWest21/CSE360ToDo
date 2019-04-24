@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class ToDoList {
 	ArrayList<Task> currentTasks;
@@ -125,12 +126,12 @@ public class ToDoList {
 	 * <p>
 	 * Sets the Task status to complete. Adds Task to completedTasks ArrayList. Removes Task from currentTasks ArrayList.
 	 * </p>
-	 * @param Task	-	Task object to set to complete.
+	 * @param Task	-	Task object to be set to complete.
 	 * @param index	-	int value for the index of the Task in the currentTasks ArrayList.
 	 * @return boolean	- true if completed, false if the Task does not exist.
 	 * @author Ramon West
 	 */
-	public boolean completeTask(Task completeTask, int index) {
+	public boolean completeTask(Task task, int index) {
 		// change status to complete, remove from toDolist, add to complete list. 
 		System.out.println("setting task status to complete...");
 		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
@@ -225,8 +226,9 @@ public class ToDoList {
 	 * Deleted tasks will print description, start date, due date, and finish date.
 	 * </p>
 	 * @author Ramon West
+	 * @throws FileNotFoundException 
 	 */
-	public void printReport() {
+	public void printReport() throws FileNotFoundException {
 		// print all content and status to a file. 
 		// requires File I/O.
 		System.out.println("printing list to report...");
@@ -239,7 +241,7 @@ public class ToDoList {
 						+ "\tPriority: " + currentTasks.get(index).getPriority());		    
 		    }
 		    
-		    out.println("\nCompleted Tasks")
+		    out.println("\nCompleted Tasks");
 		    for (int index = 0; index < completedTasks.size(); index++) {
 		    	out.println("\nDescription: " + completedTasks.get(index).getDescription()
 		    			+ "\tStart Date:" + completedTasks.get(index).getStartDate()
@@ -247,15 +249,16 @@ public class ToDoList {
 						+ "\tFinish Date: " + completedTasks.get(index).getFinishDate());		    
 		    }
 		    
-		    out.println("\nDeleted Tasks")
+		    out.println("\nDeleted Tasks");
 		    for (int index = 0; index < deletedTasks.size(); index++) {
 		    	out.println("\nDescription: " + deletedTasks.get(index).getDescription()
 		    			+ "\tStart Date:" + deletedTasks.get(index).getStartDate()
 		    			+ "\tDue Date: " + deletedTasks.get(index).getDueDate()
 		    			+ "\tFinish Date: " + deletedTasks.get(index).getFinishDate());		    
 		    }
+		
+		    out.close();
 		}
-		out.close();
 	}
 	
 	void save() {
