@@ -71,6 +71,59 @@ public class ToDoList {
 		}
 		return false;
 	}
+	
+	/**
+	 * <p>
+	 * Sets a Task status to "In progress". Sets the start date and time. 
+	 * </p>
+	 * @param Task	-	Task object to modify.
+	 * @return boolean	- true if completed, false if the Task does not exist in the currentTasks ArrayList.
+	 * @author Ramon West
+	 */
+	public boolean startTask(Task task) {
+		// change status to 'in progress'
+		System.out.println("setting task status to complete...");
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
+		//if the task does not exist - nothing is changed
+		if(taskDoesNotExist) {
+			return false;
+		}
+		//if the task exists - change status to IN_PROGRESS
+		else if(!taskDoesNotExist) {
+			task.status = Status.IN_PROGRESS;
+			task.setStartDate();
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Sets a Task status to complete. Sets the finish date and time.  Adds Task to completedTasks ArrayList. Removes Task from currentTasks ArrayList.
+	 * </p>
+	 * @param Task	-	Task object to be set to complete.
+	 * @return boolean	- true if completed, false if the Task does not exist.
+	 * @author Ramon West
+	 */
+	public boolean completeTask(Task task) {
+		// change status to complete, remove from toDolist, add to complete list.
+		System.out.println("setting task status to complete...");
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
+		//if the task does not exist or if the task has not been started - nothing is removed from 'current' list
+		if(taskDoesNotExist || task.status != Status.IN_PROGRESS) {
+			return false;
+		}
+		//if the task exists and has been started - set status to COMPLETE, set finishDate, add to 'completed' task list, and finally remove from 'current' task list.
+		else if(!taskDoesNotExist && task.status == Status.IN_PROGRESS) {
+			task.status = Status.COMPLETE;
+			task.setFinishDate();
+			completedTasks.add(task);
+			currentTasks.remove(task);
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * <p>
 	 * Checks to see if the task exists. Adds task to deletedTasks list, then removes the task from currentTasks list.
@@ -96,7 +149,6 @@ public class ToDoList {
 		}
 		return false;
 	}
-
 
 	/**
 	 * <p>
@@ -125,58 +177,6 @@ public class ToDoList {
 				|| !newTask.getDueDate().equals(currentTasks.get(index).getDueDate())))
 		{
 			currentTasks.set(index, newTask);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * <p>
-	 * Sets the Task status to complete. Adds Task to completedTasks ArrayList. Removes Task from currentTasks ArrayList.
-	 * </p>
-	 * @param Task	-	Task object to be set to complete.
-	 * @param index	-	int value for the index of the Task in the currentTasks ArrayList.
-	 * @return boolean	- true if completed, false if the Task does not exist.
-	 * @author Ramon West
-	 */
-	public boolean completeTask(Task task) {
-		// change status to complete, remove from toDolist, add to complete list.
-		System.out.println("setting task status to complete...");
-		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
-		//if the task does not exist - nothing is removed from 'current' list
-		if(taskDoesNotExist) {
-			return false;
-		}
-		//if the task exists - add to 'completed' list then remove from 'current' list.
-		else if(!taskDoesNotExist) {
-			task.status = Status.COMPLETE;
-			completedTasks.add(task);
-			currentTasks.remove(task);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * <p>
-	 * Sets the Task status to "In progress".
-	 * </p>
-	 * @param Task	-	Task object to modify.
-	 * @param index	-	int value for the index of the Task in the currentTasks ArrayList.
-	 * @return boolean	- true if completed, false if the Task does not exist in the currentTasks ArrayList.
-	 * @author Ramon West
-	 */
-	public boolean startTask(Task task) {
-		// change status to 'in progress'
-		System.out.println("setting task status to complete...");
-		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
-		//if the task does not exist - nothing is changed
-		if(taskDoesNotExist) {
-			return false;
-		}
-		//if the task exists - change status to IN_PROGRESS
-		else if(!taskDoesNotExist) {
-			task.status = Status.IN_PROGRESS;
 			return true;
 		}
 		return false;
@@ -267,30 +267,35 @@ public class ToDoList {
 		// requires File I/O.
 		System.out.println("printing list to report...");
 		try (PrintWriter out = new PrintWriter("Report.txt")) {
-		    out.println("\nCurrent To Do List");
+		    out.println("***********************************************************************************************************");
+			out.println("\nCurrent To Do List:");
 		    for (int index = 0; index < currentTasks.size(); index++) {
-		    	out.println("\nDescription: " + currentTasks.get(index).getDescription()
-		    			+ "\tStart Date:" + currentTasks.get(index).getStartDate()
-		    			+ "\tDue Date: " + currentTasks.get(index).getDueDate()
-						+ "\tPriority: " + currentTasks.get(index).getPriority());
+		    	out.println("|Description: " + currentTasks.get(index).getDescription());
+		    	out.println("| Start Date: " + currentTasks.get(index).getStartDate());
+		    	out.println("| Due Date: " + currentTasks.get(index).getDueDate());
+		    	out.println("| Priority: " + currentTasks.get(index).getPriority());
+		    	out.println("-----------------------------------------------------------------------------------------------------------");
 		    }
-
-		    out.println("\nCompleted Tasks");
+		    out.println("***********************************************************************************************************");
+		    out.println("\nCompleted Tasks:");
 		    for (int index = 0; index < completedTasks.size(); index++) {
-		    	out.println("\nDescription: " + completedTasks.get(index).getDescription()
-		    			+ "\tStart Date:" + completedTasks.get(index).getStartDate()
-		    			+ "\tDue Date: " + completedTasks.get(index).getDueDate()
-						+ "\tFinish Date: " + completedTasks.get(index).getFinishDate());
+		    	out.println("| Description: " + completedTasks.get(index).getDescription());
+		    	out.println("| Start Date: " + completedTasks.get(index).getStartDate());
+		   		out.println("| Due Date: " + completedTasks.get(index).getDueDate());
+		   		out.println("| Finish Date: " + completedTasks.get(index).getFinishDate());
+		    	out.println("-----------------------------------------------------------------------------------------------------------");
 		    }
 
-		    out.println("\nDeleted Tasks");
+		    out.println("***********************************************************************************************************");
+		    out.println("\nDeleted Tasks:");
 		    for (int index = 0; index < deletedTasks.size(); index++) {
-		    	out.println("\nDescription: " + deletedTasks.get(index).getDescription()
-		    			+ "\tStart Date:" + deletedTasks.get(index).getStartDate()
-		    			+ "\tDue Date: " + deletedTasks.get(index).getDueDate()
-		    			+ "\tFinish Date: " + deletedTasks.get(index).getFinishDate());
+		    	out.println("|Description: " + deletedTasks.get(index).getDescription());
+		    	out.println("| Start Date: " + deletedTasks.get(index).getStartDate());
+		    	out.println("| Due Date: " + deletedTasks.get(index).getDueDate());
+		    	out.println("| Finish Date: " + deletedTasks.get(index).getFinishDate());
+		    	out.println("-----------------------------------------------------------------------------------------------------------");
 		    }
-
+		    out.println("***********************************************************************************************************");
 		    out.close();
 		}
 	}

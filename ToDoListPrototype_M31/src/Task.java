@@ -1,6 +1,7 @@
 //Libraries
 import java.util.*;
 import java.io.*;
+import java.text.SimpleDateFormat;
 
 //Enum for status that has its toString operator overloaded to show a user readable format
 enum Status {
@@ -27,8 +28,8 @@ public class Task implements Serializable{
 		this.dueDate = dueDate;
 		this.priority = priority;
 		this.startDate = "Tommorow For sure...";
-		this.finishDate = "Never";
-		this.startDate = "Never";
+		this.finishDate = "Never Ended";
+		this.startDate = "Never Started";
 		this.status = Status.NOT_STARTED;
 	}
 
@@ -40,16 +41,16 @@ public class Task implements Serializable{
 		this.priority = input;
 	}
 	
-	public void setStartDate(String monthDateYear) {
-		this.startDate = monthDateYear;
+	public void setStartDate() {
+		this.startDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
 	}
 	
-	public void setDueDate(String monthDateYear) {
-		this.dueDate = monthDateYear;
+	public void setDueDate() {
+		this.dueDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
 	}
 	
-	public void setFinishDate(String monthDateYear) {
-		this.finishDate = monthDateYear;
+	public void setFinishDate() {
+		this.finishDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
 	}
 	
 	public void setStatus(Status input) {
