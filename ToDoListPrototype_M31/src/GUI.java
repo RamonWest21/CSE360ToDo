@@ -361,7 +361,6 @@ public class GUI extends javax.swing.JFrame {
     	//If no error, attempt to change list
     	if(!error) {
     		Task newTask = new Task(description, dueDate, Integer.parseInt(priority));
-    		System.out.println(Integer.parseInt(priority));
         	if(list.changeTask(newTask, listSelectedIndex)) {
         		jTextField6.setText("");
             	jTextField1.setText("");
@@ -487,7 +486,6 @@ public class GUI extends javax.swing.JFrame {
     	try {
 			list.printReport();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

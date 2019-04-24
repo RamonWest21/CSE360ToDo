@@ -50,7 +50,6 @@ public class ToDoList {
 	public boolean addTaskToList(Task newTask) {
 		System.out.println("adding task to list...");
 		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
-		boolean uniquePriority = checkUniquePriority(currentTasks, newTask);
 		int count = 1;
 		for(int i=0; i < currentTasks.size(); i++) {
 			if(currentTasks.get(i).getPriority()==count) {
@@ -61,6 +60,7 @@ public class ToDoList {
 
 		//duplicate description or priority returns false - failed to add
 		if(uniqueDescription) {
+			fixPriorities(newTask);
 			currentTasks.add(newTask);
 			return true;
 		}
@@ -167,6 +167,7 @@ public class ToDoList {
 		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
 
 		if(uniqueDescription) {
+			fixPriorities(newTask);
 			currentTasks.set(index, newTask);
 			return true;
 		}
@@ -176,6 +177,7 @@ public class ToDoList {
 				&& (newTask.getPriority()!=currentTasks.get(index).getPriority()
 				|| !newTask.getDueDate().equals(currentTasks.get(index).getDueDate())))
 		{
+			fixPriorities(newTask);
 			currentTasks.set(index, newTask);
 			return true;
 		}
@@ -236,20 +238,35 @@ public class ToDoList {
 	 * @return boolean	 -	Returns true if the Task priority field is unique in the ArrayList. Returns false if the priority is taken.
 	 * @author Ramon West
 	 */
-	private boolean checkUniquePriority(ArrayList<Task> list, Task task) {
+	private Task checkUniquePriority(ArrayList<Task> list, Task task) {
 		boolean unique = true;
+		Task duplicate = null;
 		for(int index = 0; index < list.size(); index++) {
 			if((list.get(index).getPriority()) == (task.getPriority())) {
 				unique = false;
+				duplicate = list.get(index);
 			}
 		}
 		if(unique) {
-			 return true;
+			System.out.println("UNIQUE");
+			 return null;
 		}
 		else if (!unique) {
-			return false;
+			return duplicate;
 		}
-		return false;
+		return null;
+	}
+	
+	public void fixPriorities(Task task) {
+		Task duplicatePrio = checkUniquePriority(currentTasks, task);
+		if(duplicatePrio==null) {
+			return;
+		}
+		else if(duplicatePrio!=task){
+			int newPrio = duplicatePrio.getPriority() + 1;
+			duplicatePrio.setPriority(newPrio);
+			fixPriorities(duplicatePrio);
+		}
 	}
 
 	/**
