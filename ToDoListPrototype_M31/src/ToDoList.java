@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class ToDoList {
 	ArrayList<Task> currentTasks;
@@ -304,7 +305,36 @@ public class ToDoList {
 		// format the list and save to file.
 		// requires File I/O.
 		System.out.println("saving list...");
+		File file = new File("DoNotDelteIAmYourPrecious.txt");
+
+		try {
+		if(!file.exists()) {
+				file.createNewFile();
+			}
+
+		PrintWriter pw = new PrintWriter(file);
+		pw.println("Current Taks: ");
+		for(int iterator=0; iterator < currentTasks.size(); iterator++) {
+			pw.println(iterator);
+		}
+
+		pw.println("Completed Taks: ");
+		for(int iterator=0; iterator < completedTasks.size(); iterator++) {
+			pw.println(iterator);
+		}
+
+		pw.println("Deleted Taks: ");
+		for(int iterator=0; iterator < deletedTasks.size(); iterator++) {
+			pw.println(iterator);  
+		}
+		pw.close();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				System.out.println("saving list...");
 	}
+
 
 	void restore() {
 		// read from file to restore previous session.
