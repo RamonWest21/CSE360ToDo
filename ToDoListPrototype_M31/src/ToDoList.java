@@ -141,8 +141,34 @@ public class ToDoList {
 		}
 		//if the task exists - add to 'completed' list then remove from 'current' list.
 		else if(!taskDoesNotExist) {
+			task.status = Status.COMPLETE;
 			completedTasks.add(task);
 			currentTasks.remove(task);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * <p>
+	 * Sets the Task status to "In progress".
+	 * </p>
+	 * @param Task	-	Task object to modify.
+	 * @param index	-	int value for the index of the Task in the currentTasks ArrayList.
+	 * @return boolean	- true if completed, false if the Task does not exist in the currentTasks ArrayList.
+	 * @author Ramon West
+	 */
+	public boolean startTask(Task task, int index) {
+		// change status to 'in progress'
+		System.out.println("setting task status to complete...");
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
+		//if the task does not exist - nothing is changed
+		if(taskDoesNotExist) {
+			return false;
+		}
+		//if the task exists - change status to IN_PROGRESS
+		else if(!taskDoesNotExist) {
+			task.status = Status.IN_PROGRESS;
 			return true;
 		}
 		return false;
