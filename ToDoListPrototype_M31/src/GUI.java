@@ -321,9 +321,17 @@ public class GUI extends javax.swing.JFrame {
     int convertedIndex = -1;
     
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Save" button
+    	list.save();
+    	updateTable();
     }                                        
 
+    private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // "Restore" button
+    	list.restore();
+    	updateTable();
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // "Update" button
     	boolean error = false;
@@ -482,10 +490,6 @@ public class GUI extends javax.swing.JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    
-    private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
     }
     
     private void updateTable() {
