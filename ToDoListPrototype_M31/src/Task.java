@@ -42,15 +42,15 @@ public class Task implements Serializable, Comparable{
 	}
 	
 	public void setStartDate() {
-		this.startDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
+		this.startDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());;
 	}
 	
 	public void setDueDate() {
-		this.dueDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		this.dueDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	}
 	
 	public void setFinishDate() {
-		this.finishDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
+		this.finishDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());;
 	}
 	
 	public void setStatus(Status input) {

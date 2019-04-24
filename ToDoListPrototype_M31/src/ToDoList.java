@@ -302,6 +302,7 @@ public class ToDoList {
 		try (PrintWriter out = new PrintWriter("Report.txt")) {
 		    out.println("***********************************************************************************************************");
 			out.println("\nCurrent To Do List:");
+			out.println("***********************************************************************************************************");
 		    for (int index = 0; index < currentTasks.size(); index++) {
 		    	out.println("|Description: " + currentTasks.get(index).getDescription());
 		    	out.println("| Start Date: " + currentTasks.get(index).getStartDate());
