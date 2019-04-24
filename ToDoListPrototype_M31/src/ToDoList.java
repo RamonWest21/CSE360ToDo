@@ -139,10 +139,10 @@ public class ToDoList {
 	 * @return boolean	- true if completed, false if the Task does not exist.
 	 * @author Ramon West
 	 */
-	public boolean completeTask(Task task, int index) {
+	public boolean completeTask(Task task) {
 		// change status to complete, remove from toDolist, add to complete list.
 		System.out.println("setting task status to complete...");
-		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, completeTask);
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
 		//if the task does not exist - nothing is removed from 'current' list
 		if(taskDoesNotExist) {
 			return false;
@@ -166,7 +166,7 @@ public class ToDoList {
 	 * @return boolean	- true if completed, false if the Task does not exist in the currentTasks ArrayList.
 	 * @author Ramon West
 	 */
-	public boolean startTask(Task task, int index) {
+	public boolean startTask(Task task) {
 		// change status to 'in progress'
 		System.out.println("setting task status to complete...");
 		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);

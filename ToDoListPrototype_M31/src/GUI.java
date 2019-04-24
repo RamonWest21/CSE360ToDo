@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -312,7 +313,13 @@ public class GUI extends javax.swing.JFrame {
     );
 
     pack();
+    jTable1.setAutoCreateRowSorter(true);
     }// </editor-fold>
+    
+    
+    int listSelectedIndex = -1;
+    int convertedIndex = -1;
+    
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
@@ -364,11 +371,37 @@ public class GUI extends javax.swing.JFrame {
     }                                        
 
     private void inprogressButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    	// "Complete" button
+    	if(convertedIndex == -1) {
+    		JOptionPane.showMessageDialog(jPanel1, "Please select a task from the list", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    	else {
+    		Task inprogress = list.getTask(convertedIndex);
+    		list.startTask(inprogress);
+    		listSelectedIndex = -1;
+    	    convertedIndex = -1;
+    	    jTextField6.setText("");
+        	jTextField1.setText("");
+        	jTextField2.setText("");
+    		updateTable();
+    	}
     }
     
     private void completeButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Complete" button
+    	if(convertedIndex == -1) {
+    		JOptionPane.showMessageDialog(jPanel1, "Please select a task from the list", "Error", JOptionPane.ERROR_MESSAGE);
+    	}
+    	else {
+    		Task complete = list.getTask(convertedIndex);
+    		list.completeTask(complete);
+    		listSelectedIndex = -1;
+    	    convertedIndex = -1;
+    	    jTextField6.setText("");
+        	jTextField1.setText("");
+        	jTextField2.setText("");
+    		updateTable();
+    	}
     }                                        
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -388,8 +421,7 @@ public class GUI extends javax.swing.JFrame {
     	}
     }                                        
 
-    int listSelectedIndex = -1;
-    int convertedIndex = -1;
+    
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
     	DefaultTableModel model =  (DefaultTableModel) jTable1.getModel();
     	int selectedRowIndex = jTable1.getSelectedRow();
@@ -443,7 +475,13 @@ public class GUI extends javax.swing.JFrame {
     }                                        
 
     private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Save Report" button
+    	try {
+			list.printReport();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
     private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
