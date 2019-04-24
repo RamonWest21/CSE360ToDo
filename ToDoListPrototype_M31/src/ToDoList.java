@@ -3,8 +3,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.io.PrintWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ToDoList {
 	ArrayList<Task> currentTasks;
@@ -145,6 +149,7 @@ public class ToDoList {
 		}
 		//if the task exists - add to 'deleted' list then remove from 'current' list.
 		else if(!taskDoesNotExist) {
+			task.status = Status.DELETED;
 			deletedTasks.add(task);
 			currentTasks.remove(task);
 			return true;
@@ -303,7 +308,9 @@ public class ToDoList {
 		try (PrintWriter out = new PrintWriter("Report.txt")) {
 		    out.println("***********************************************************************************************************");
 			out.println("\nCurrent To Do List:");
-			out.println("***********************************************************************************************************");
+			if(currentTasks.size() > 0) {
+				out.println("-----------------------------------------------------------------------------------------------------------");
+			}
 		    for (int index = 0; index < currentTasks.size(); index++) {
 		    	out.println("|Description: " + currentTasks.get(index).getDescription());
 		    	out.println("| Start Date: " + currentTasks.get(index).getStartDate());
@@ -311,8 +318,12 @@ public class ToDoList {
 		    	out.println("| Priority: " + currentTasks.get(index).getPriority());
 		    	out.println("-----------------------------------------------------------------------------------------------------------");
 		    }
+		    out.println("\n");
 		    out.println("***********************************************************************************************************");
 		    out.println("\nCompleted Tasks:");
+		    if(completedTasks.size() > 0) {
+				out.println("-----------------------------------------------------------------------------------------------------------");
+			}
 		    for (int index = 0; index < completedTasks.size(); index++) {
 		    	out.println("| Description: " + completedTasks.get(index).getDescription());
 		    	out.println("| Start Date: " + completedTasks.get(index).getStartDate());
@@ -320,9 +331,12 @@ public class ToDoList {
 		   		out.println("| Finish Date: " + completedTasks.get(index).getFinishDate());
 		    	out.println("-----------------------------------------------------------------------------------------------------------");
 		    }
-
+		    out.println("\n");
 		    out.println("***********************************************************************************************************");
 		    out.println("\nDeleted Tasks:");
+		    if(deletedTasks.size() > 0) {
+				out.println("-----------------------------------------------------------------------------------------------------------");
+			}
 		    for (int index = 0; index < deletedTasks.size(); index++) {
 		    	out.println("|Description: " + deletedTasks.get(index).getDescription());
 		    	out.println("| Start Date: " + deletedTasks.get(index).getStartDate());
@@ -337,43 +351,65 @@ public class ToDoList {
 
 	void save() {
 		// format the list and save to file.
-		// requires File I/O.
 		System.out.println("saving list...");
-		File file = new File("DoNotDelteIAmYourPrecious.txt");
-
 		try {
-		if(!file.exists()) {
-				file.createNewFile();
+			FileOutputStream f = new FileOutputStream(new File("Data.txt"));
+			ObjectOutputStream o = new ObjectOutputStream(f);
+
+			// Write data to file
+			for(int iterator=0; iterator < currentTasks.size(); iterator++) {
+				o.writeObject(currentTasks.get(iterator));
 			}
 
-		PrintWriter pw = new PrintWriter(file);
-		pw.println("Current Taks: ");
-		for(int iterator=0; iterator < currentTasks.size(); iterator++) {
-			pw.println(iterator);
-		}
+			for(int iterator=0; iterator < completedTasks.size(); iterator++) {
+				o.writeObject(completedTasks.get(iterator));
+			}
+			
+			for(int iterator=0; iterator < deletedTasks.size(); iterator++) {
+				o.writeObject(deletedTasks.get(iterator));
+			}
+			o.close();
+			f.close();
 
-		pw.println("Completed Taks: ");
-		for(int iterator=0; iterator < completedTasks.size(); iterator++) {
-			pw.println(iterator);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
 		}
-
-		pw.println("Deleted Taks: ");
-		for(int iterator=0; iterator < deletedTasks.size(); iterator++) {
-			pw.println(iterator);  
-		}
-		pw.close();
-		}catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-				System.out.println("saving list...");
 	}
 
 
 	void restore() {
 		// read from file to restore previous session.
-		// requires File I/O.
 		System.out.println("restoring list...");
+		try {
+			FileInputStream fi = new FileInputStream(new File("Data.txt"));
+			ObjectInputStream oi = new ObjectInputStream(fi);
+
+			// Read data
+		    while(fi.available() > 0) { // check if the file stream is at the end
+		    	Task task = (Task)oi.readObject();    // read from the object stream
+		    	if(task.getStatus() == Status.IN_PROGRESS ||task.getStatus() == Status.NOT_STARTED) {
+		    		currentTasks.add(task);
+		    	}
+		    	else if(task.getStatus() == Status.COMPLETE) {
+		    		completedTasks.add(task);
+		    	}
+		    	else if(task.getStatus() == Status.DELETED) {
+		    		deletedTasks.add(task);
+		    	}
+		    }
+			oi.close();
+			fi.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+			
 	}
 	/*
 	 * Prints the description, due date, and priority of all elements in currentTasks

@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 //Enum for status that has its toString operator overloaded to show a user readable format
 enum Status {
-		NOT_STARTED("Not Started"), IN_PROGRESS("In Progress"), COMPLETE("Complete");
+		NOT_STARTED("Not Started"), IN_PROGRESS("In Progress"), COMPLETE("Complete"), DELETED("Deleted");
 		private String status;
 		Status(String status){
 			this.status = status;
