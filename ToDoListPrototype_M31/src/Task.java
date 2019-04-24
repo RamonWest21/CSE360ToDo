@@ -15,7 +15,7 @@ enum Status {
 		}
 	}
 
-public class Task implements Serializable{
+public class Task implements Serializable, Comparable{
 	String description, dueDate, finishDate, startDate;
 	Status status;
 	int priority;
@@ -42,15 +42,15 @@ public class Task implements Serializable{
 	}
 	
 	public void setStartDate() {
-		this.startDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
+		this.startDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());;
 	}
 	
 	public void setDueDate() {
-		this.dueDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		this.dueDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
 	}
 	
 	public void setFinishDate() {
-		this.finishDate = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());;
+		this.finishDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());;
 	}
 	
 	public void setStatus(Status input) {
@@ -80,5 +80,10 @@ public class Task implements Serializable{
 	public Status getStatus() {
 		return status;
 	}
-	
+
+	public int compareTo(Object compare) {
+		int comparePrio=((Task)compare).getPriority();
+        /* For Ascending order*/
+        return this.priority-comparePrio;
+	}
 }

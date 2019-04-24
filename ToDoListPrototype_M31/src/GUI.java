@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class GUI extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         saveButton = new javax.swing.JButton();
         restoreButton = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -56,14 +58,19 @@ public class GUI extends javax.swing.JFrame {
         deleteButton = new javax.swing.JButton();
         reportButton = new javax.swing.JButton();
         inprogressButton = new javax.swing.JButton();
+        resetButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("To Do List");
 
         jLabel6.setText("Due Date");
 
+        jTextField3.setToolTipText("");
+
         jLabel8.setText("Description");
 
-        jButton8.setText("Add");
+        jButton8.setText("Add Task");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -89,17 +96,17 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(172, 172, 172)
-                        .addComponent(jLabel5)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
@@ -107,11 +114,11 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(73, 73, 73)
+                .addGap(35, 35, 35)
                 .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Add", jPanel2);
@@ -122,7 +129,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel12.setText("Description");
 
-        jButton3.setText("Update");
+        jButton3.setText("Update Task");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -130,6 +137,8 @@ public class GUI extends javax.swing.JFrame {
         });
 
         jLabel13.setForeground(new java.awt.Color(255, 0, 0));
+
+        jLabel1.setText("Select a Task from the list that you want to modify");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -150,33 +159,38 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(172, 172, 172)
-                        .addComponent(jLabel13)))
-                .addContainerGap(202, Short.MAX_VALUE))
+                        .addComponent(jLabel13))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(98, 98, 98)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addGap(73, 73, 73)
+                .addGap(35, 35, 35)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(283, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Modify", jPanel4);
@@ -217,7 +231,7 @@ public class GUI extends javax.swing.JFrame {
         jTable1.getColumnModel().getColumn(0).setMinWidth(200);
     }
 
-    completeButton.setText("Complete");
+    completeButton.setText("Set As Complete");
     completeButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             completeButtonActionPerformed(evt);
@@ -238,12 +252,21 @@ public class GUI extends javax.swing.JFrame {
         }
     });
 
-    inprogressButton.setText("In Progress");
+    inprogressButton.setText("Set As In Progress");
     inprogressButton.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             inprogressButtonActionPerformed(evt);
         }
     });
+
+    resetButton.setText("Reset");
+    resetButton.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            resetButtonActionPerformed(evt);
+        }
+    });
+
+    jLabel3.setText("Select column headers to sort the To Do List");
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
@@ -253,25 +276,29 @@ public class GUI extends javax.swing.JFrame {
             .addGap(11, 11, 11)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(saveButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(restoreButton)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(reportButton)
-                    .addGap(0, 0, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createSequentialGroup()
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane3)
                         .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addGap(0, 50, Short.MAX_VALUE)
                             .addComponent(inprogressButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(68, 68, 68)
+                            .addGap(45, 45, 45)
                             .addComponent(completeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(74, 74, 74)
+                            .addGap(45, 45, 45)
                             .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(85, 85, 85)))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(0, 0, Short.MAX_VALUE))))
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(saveButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(restoreButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(reportButton)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(resetButton)))
             .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
@@ -283,11 +310,14 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(saveButton)
                         .addComponent(restoreButton)
-                        .addComponent(reportButton))
+                        .addComponent(reportButton)
+                        .addComponent(resetButton))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(completeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,11 +339,12 @@ public class GUI extends javax.swing.JFrame {
         layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(layout.createSequentialGroup()
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(0, 50, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     pack();
     jTable1.setAutoCreateRowSorter(true);
+    jTabbedPane1.setFont(new Font( "Dialog", Font.BOLD, 16));
     }// </editor-fold>
     
     
@@ -321,9 +352,28 @@ public class GUI extends javax.swing.JFrame {
     int convertedIndex = -1;
     
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+        // "Save" button
+    	list.save();
+    	updateTable();
     }                                        
 
+    private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // "Restore" button
+    	list.restore();
+    	updateTable();
+    }
+    
+    private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // "Reset" button
+    	int yesnoButton = JOptionPane.YES_NO_OPTION;
+    	int result = JOptionPane.showConfirmDialog (jPanel1, "Are you sure you want to reset your To Do List?","Warning",yesnoButton);
+    	if(result == JOptionPane.YES_OPTION){
+    		list = new ToDoList();
+    		updateTable();
+    		JOptionPane.showMessageDialog(jPanel1, "Current To Do List has been reset", "Message", JOptionPane.INFORMATION_MESSAGE);
+    	}
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // "Update" button
     	boolean error = false;
@@ -353,7 +403,6 @@ public class GUI extends javax.swing.JFrame {
     	//If no error, attempt to change list
     	if(!error) {
     		Task newTask = new Task(description, dueDate, Integer.parseInt(priority));
-    		System.out.println(Integer.parseInt(priority));
         	if(list.changeTask(newTask, listSelectedIndex)) {
         		jTextField6.setText("");
             	jTextField1.setText("");
@@ -394,13 +443,18 @@ public class GUI extends javax.swing.JFrame {
     	}
     	else {
     		Task complete = list.getTask(convertedIndex);
-    		list.completeTask(complete);
-    		listSelectedIndex = -1;
-    	    convertedIndex = -1;
-    	    jTextField6.setText("");
-        	jTextField1.setText("");
-        	jTextField2.setText("");
-    		updateTable();
+    		if(list.completeTask(complete)) {
+    			listSelectedIndex = -1;
+        	    convertedIndex = -1;
+        	    jTextField6.setText("");
+            	jTextField1.setText("");
+            	jTextField2.setText("");
+        		updateTable();
+    		}
+    		else {
+    			JOptionPane.showMessageDialog(jPanel1, "Please start the task before completing it", "Error", JOptionPane.ERROR_MESSAGE);
+    		}
+    		
     	}
     }                                        
 
@@ -479,13 +533,8 @@ public class GUI extends javax.swing.JFrame {
     	try {
 			list.printReport();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
-    
-    private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
     }
     
     private void updateTable() {
@@ -502,7 +551,7 @@ public class GUI extends javax.swing.JFrame {
     		model.addRow(rowData);
     	}
     }
-
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -535,16 +584,18 @@ public class GUI extends javax.swing.JFrame {
         });
     }
 
- // Variables declaration - do not modify                     
+    // Variables declaration - do not modify                     
     private javax.swing.JButton completeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton inprogressButton;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton8;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
@@ -560,6 +611,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JButton reportButton;
+    private javax.swing.JButton resetButton;
     private javax.swing.JButton restoreButton;
     private javax.swing.JButton saveButton;
     // End of variables declaration                  
