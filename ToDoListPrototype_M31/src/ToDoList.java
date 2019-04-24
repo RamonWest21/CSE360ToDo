@@ -50,6 +50,13 @@ public class ToDoList {
 		System.out.println("adding task to list...");
 		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
 		boolean uniquePriority = checkUniquePriority(currentTasks, newTask);
+		int count = 1;
+		for(int i=0; i < currentTasks.size(); i++) {
+			if(currentTasks.get(i).getPriority()==count) {
+				count++;
+			}
+		}
+		newTask.setPriority(count);
 		
 		//duplicate description or priority returns false - failed to add
 		if(uniqueDescription) {
@@ -104,18 +111,19 @@ public class ToDoList {
 	public boolean changeTask(Task newTask, int index) {
 		// edit / replace task from list.
 		System.out.println("changing task...");
+		boolean uniqueDescription = checkUniqueDescription(currentTasks, newTask);
 		
-		if(addTaskToList(newTask)) {
-			currentTasks.remove(index);
+		if(uniqueDescription) {
+			currentTasks.set(index, newTask);
 			return true;
 		}
+
 		//For when the description is the same but the other options might not be
 		else if(newTask.getDescription().equals(currentTasks.get(index).getDescription()) 
 				&& (newTask.getPriority()!=currentTasks.get(index).getPriority() 
 				|| !newTask.getDueDate().equals(currentTasks.get(index).getDueDate()))) 
 		{
-			currentTasks.remove(index);
-			addTaskToList(newTask);
+			currentTasks.set(index, newTask);
 			return true;
 		}
 		return false;
@@ -133,15 +141,15 @@ public class ToDoList {
 	public boolean completeTask(Task completeTask, int index) {
 		// change status to complete, remove from toDolist, add to complete list. 
 		System.out.println("setting task status to complete...");
-		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, task);
+		boolean taskDoesNotExist = checkUniqueDescription(currentTasks, completeTask);
 		//if the task does not exist - nothing is removed from 'current' list
 		if(taskDoesNotExist) {
 			return false;
 		}
 		//if the task exists - add to 'completed' list then remove from 'current' list.
 		else if(!taskDoesNotExist) {
-			completedTasks.add(task);
-			currentTasks.remove(task);
+			completedTasks.add(completeTask);
+			currentTasks.remove(completeTask);
 			return true;
 		}
 		return false;
@@ -226,7 +234,7 @@ public class ToDoList {
 	 * </p>
 	 * @author Ramon West
 	 */
-	public void printReport() {
+	/*public void printReport() {
 		// print all content and status to a file. 
 		// requires File I/O.
 		System.out.println("printing list to report...");
@@ -256,7 +264,7 @@ public class ToDoList {
 		    }
 		}
 		out.close();
-	}
+	}*/
 	
 	void save() {
 		// format the list and save to file. 
