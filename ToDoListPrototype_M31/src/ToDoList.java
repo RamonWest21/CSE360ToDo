@@ -24,26 +24,6 @@ public class ToDoList {
 		this.deletedTasks = new ArrayList<Task>(); //deleted
 	}
 
-
-
-	public ArrayList<Task> getCurrentTasks(){
-		return currentTasks;
-	}
-
-	public ArrayList<Task> getDeletedTasks(){
-		return deletedTasks;
-	}
-
-	public ArrayList<Task> getCompletedTasks(){
-		return completedTasks;
-	}
-
-	public Task getTask(int index) {
-		return currentTasks.get(index);
-	}
-
-
-
 	/**
 	 * <p>
 	 * Adds a Task to the list. First checks to see if the description is unique
@@ -349,6 +329,16 @@ public class ToDoList {
 		}
 	}
 
+	/**
+	 * <p>
+	 * Saves the contents of the currentTasks, completedTasks, and deletedTasks Array Lists
+	 * to a file named "Data.txt" using FileOutputStream and serializes the data with
+	 * ObjectOutputStream.
+	 * </p>
+	 * @author Rahul Sai Kancharala and Tanner Cooper
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	void save() {
 		// format the list and save to file.
 		System.out.println("saving list...");
@@ -370,7 +360,8 @@ public class ToDoList {
 			}
 			o.close();
 			f.close();
-
+			
+		//Error catching
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} catch (IOException e) {
@@ -378,7 +369,17 @@ public class ToDoList {
 		}
 	}
 
-
+	/**
+	 * <p>
+	 * Reads the contents of a file called "Data.txt" using FileInputStream along with
+	 * ObjectInputStream. The data is deserialized and casted as an object of the Task class.
+	 * The method then determines which Array List the Task gets inserted into by based on the 
+	 * Task's Status.
+	 * </p>
+	 * @author Tanner Cooper
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	void restore() {
 		// read from file to restore previous session.
 		System.out.println("restoring list...");
@@ -387,8 +388,8 @@ public class ToDoList {
 			ObjectInputStream oi = new ObjectInputStream(fi);
 
 			// Read data
-		    while(fi.available() > 0) { // check if the file stream is at the end
-		    	Task task = (Task)oi.readObject();    // read from the object stream
+		    while(fi.available() > 0) {
+		    	Task task = (Task)oi.readObject();    //read object from stream
 		    	if(task.getStatus() == Status.IN_PROGRESS ||task.getStatus() == Status.NOT_STARTED) {
 		    		currentTasks.add(task);
 		    	}
@@ -401,7 +402,8 @@ public class ToDoList {
 		    }
 			oi.close();
 			fi.close();
-
+		
+		//Error catching
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");
 		} catch (IOException e) {
@@ -411,8 +413,12 @@ public class ToDoList {
 		}
 			
 	}
-	/*
+
+	/**
+	 * <p>
 	 * Prints the description, due date, and priority of all elements in currentTasks
+	 * </p>
+	 * @author Tanner Cooper and Ramon West
 	 */
 	void testPrint() {
 		System.out.println();
@@ -422,5 +428,25 @@ public class ToDoList {
 			System.out.print("\t" + currentTasks.get(index).getPriority());
 			System.out.println();
 		}
+	}
+	
+	//Returns currentTasks
+	public ArrayList<Task> getCurrentTasks(){
+		return currentTasks;
+	}
+
+	//Returns deletedTasks
+	public ArrayList<Task> getDeletedTasks(){
+		return deletedTasks;
+	}
+
+	//Returns completedTasks
+	public ArrayList<Task> getCompletedTasks(){
+		return completedTasks;
+	}
+
+	//Returns a task at an index
+	public Task getTask(int index) {
+		return currentTasks.get(index);
 	}
 }

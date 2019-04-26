@@ -359,6 +359,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void restoreButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // "Restore" button
+    	list = new ToDoList();
     	list.restore();
     	updateTable();
     }
